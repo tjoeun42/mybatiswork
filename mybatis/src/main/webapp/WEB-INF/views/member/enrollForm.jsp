@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <title>Enroll Form</title>
 </head>
 <body>
@@ -17,7 +18,7 @@
 				<tr>
 					<td>* ID</td>
 					<td>
-						<input type="text" name="userId" required>
+						<input type="text" name="userId" id="userId" required>
 						<div id="checkResult" style="font-size:0.8em; display:none"></div>
 					</td>
 				</tr>
@@ -61,5 +62,33 @@
 		</form>
 		<br><br>
 	</div>
+	
+	<script type="text/javascript">
+		const $idInput = $("#userId");
+		$idInput.keyup(function() {
+			console.log($idInput.val());
+			if($idInput.val().length >= 5) {
+				$.ajax({
+					url: "idCheck.me",
+					data: {checkId: $idInput.val()},
+					success:function(result){
+						console.log(result);
+					},
+					error:function() {
+						console.log("아이디 체크용 ajax통신 실패");
+					}
+				})
+			} else {
+				$("#checkResult").hide();
+			}
+		})
+	</script>
 </body>
 </html>
+
+
+
+
+
+
+

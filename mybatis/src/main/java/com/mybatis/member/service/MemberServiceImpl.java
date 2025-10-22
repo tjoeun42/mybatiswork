@@ -8,13 +8,23 @@ import com.mybatis.member.repository.MemberRepository;
 
 public class MemberServiceImpl implements MemberService {
 	private MemberRepository mDao = new MemberRepository();
+	private SqlSession sqlSession = Template.getSqlSession();
 	
 	@Override
 	public int checkId(String userId) {
-		SqlSession sqlSession = Template.getSqlSession();
 		int checkId = mDao.checkId(sqlSession, userId);
 		sqlSession.close();
 		return checkId;
+	}
+	
+	@Override
+	public int insertMember(Member m) {
+		int result = mDao.insertMember(sqlSession, m);
+		if(result > 0) {
+			sqlSession.commit();
+		}
+		sqlSession.close();
+		return result;
 	}
 
 	@Override
@@ -34,5 +44,7 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	
 
 }

@@ -72,7 +72,17 @@
 					url: "idCheck.me",
 					data: {checkId: $idInput.val()},
 					success:function(result){
-						console.log(result);
+						if(result == "idN") {
+							$("#checkResult").show();
+							$("#checkResult").css("color", "red")
+											 .text("중복된 아이디가 존재합니다. 다시 입력해 주세요");
+							$("#enrollForm :submit").attr("disabled", true);
+						} else {
+							$("#checkResult").show();
+							$("#checkResult").css("color", "green")
+											 .text("멋진 아이디네요");
+							$("#enrollForm :submit").attr("disabled", false);
+						}
 					},
 					error:function() {
 						console.log("아이디 체크용 ajax통신 실패");
@@ -80,6 +90,7 @@
 				})
 			} else {
 				$("#checkResult").hide();
+				$("#enrollForm :submit").attr("disabled", true);
 			}
 		})
 	</script>

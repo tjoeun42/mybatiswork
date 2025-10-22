@@ -4,6 +4,7 @@ import com.mybatis.member.dto.Member;
 
 public interface MemberService {
 	int checkId(String userId);
+	int insertMember(Member m);
 	Member loginMember(Member m);
 	int updateMember(Member m);
 	int deleteMember(String userId);

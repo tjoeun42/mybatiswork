@@ -7,4 +7,8 @@
   <select id="checkId" resultType="_int">
     select count(*) from member where user_id = #{userId}
   </select>
+  <insert id="insertMember" parameterType="com.mybatis.member.dto.Member">
+  	insert into member 
+  	values(#{userId}, #{userPwd},#{userName},#{email},#{birthday},#{gender},#{phone},#{address},default,default,default)
+  </insert>
 </mapper>

@@ -82,10 +82,24 @@
 			<c:forEach var="p" begin="${pi.startPage}" end="${pi.endPage}">
 				<c:choose>
 					<c:when test="${empty keyField}">
-						<a href="list.bo?nowPage=${p}">[${p}]</a>
+						<c:choose>
+							<c:when test="${p eq pi.nowPage}">
+								<a href="list.bo?nowPage=${p}" style="color:orange">[${p}]</a>
+							</c:when>
+							<c:otherwise>
+								<a href="list.bo?nowPage=${p}">[${p}]</a>
+							</c:otherwise>
+						</c:choose>
 					</c:when>
 					<c:otherwise>
-						<a href="search.bo?nowPage=${p}&keyField=${keyField}&keyWord=${keyWord}">[${p}]</a>
+						<c:choose>
+							<c:when test="${p eq pi.nowPage}">
+								<a href="search.bo?nowPage=${p}&keyField=${keyField}&keyWord=${keyWord}" style="color:orange">[${p}]</a>
+							</c:when>
+							<c:otherwise>
+								<a href="search.bo?nowPage=${p}&keyField=${keyField}&keyWord=${keyWord}">[${p}]</a>
+							</c:otherwise>
+						</c:choose>
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>

@@ -10,7 +10,12 @@
   </settings>
   
   <!-- typeAlias : servlet, bean클래스들의 풀클래스명을 단순한 클래스명으로 하기 위해 별칭을 등록해주는 영역 -->
-
+  <typeAliases>
+	 <typeAlias type="com.mybatis.member.dto.Member" alias="Member"/>
+	 <typeAlias type="com.mybatis.board.dto.Board" alias="Board"/>
+	 <typeAlias type="com.mybatis.board.dto.Reply" alias="Reply"/>
+  </typeAliases>
+  
   <!-- mybatis에서 연동할 DB정보들을 등록하는 영역 -->	
   <environments default="development">
     <environment id="development">

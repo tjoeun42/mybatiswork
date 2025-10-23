@@ -7,6 +7,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
 import com.mybatis.board.dto.Board;
+import com.mybatis.board.dto.Reply;
 import com.mybatis.common.dto.PageInfo;
 
 public class BoardRepository {
@@ -42,6 +43,34 @@ public class BoardRepository {
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		
 		return (ArrayList)sqlSession.selectList("boardMapper.selectSearchList", map, rowBounds);
+	}
+
+	public int increaseCount(SqlSession sqlSession, int boardNo) {
+		return sqlSession.update("boardMapper.increaseCount", boardNo);
+	}
+
+	public Board selectBoard(SqlSession sqlSession, int boardNo) {
+		return sqlSession.selectOne("boardMapper.selectBoard", boardNo);
+	}
+
+	public int replyRecord(SqlSession sqlSession, int boardNo) {
+		return sqlSession.selectOne("boardMapper.replyRecord", boardNo);
+	}
+	/*
+
+	public ArrayList<Reply> selectReplyList(SqlSession sqlSession, int boardNo, PageInfo pi) {
+		int limit = pi.getNumPerPage();
+		int offset = (pi.getNowPage()-1)*limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return (ArrayList)sqlSession.selectList("boardMapper.selectReplyList", boardNo, rowBounds);
+	}
+	*/
+
+	public ArrayList<Reply> selectReplyList(SqlSession sqlSession, int boardNo, PageInfo pi) {
+		int limit = pi.getNumPerPage();
+		int offset = (pi.getNowPage()-1)*limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return (ArrayList)sqlSession.selectList("boardMapper.selectReplyList", boardNo, rowBounds);
 	}
 
 }

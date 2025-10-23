@@ -56,16 +56,7 @@ public class BoardRepository {
 	public int replyRecord(SqlSession sqlSession, int boardNo) {
 		return sqlSession.selectOne("boardMapper.replyRecord", boardNo);
 	}
-	/*
-
-	public ArrayList<Reply> selectReplyList(SqlSession sqlSession, int boardNo, PageInfo pi) {
-		int limit = pi.getNumPerPage();
-		int offset = (pi.getNowPage()-1)*limit;
-		RowBounds rowBounds = new RowBounds(offset, limit);
-		return (ArrayList)sqlSession.selectList("boardMapper.selectReplyList", boardNo, rowBounds);
-	}
-	*/
-
+	
 	public ArrayList<Reply> selectReplyList(SqlSession sqlSession, int boardNo, PageInfo pi) {
 		int limit = pi.getNumPerPage();
 		int offset = (pi.getNowPage()-1)*limit;

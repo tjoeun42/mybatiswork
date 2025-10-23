@@ -36,4 +36,12 @@ public class BoardRepository {
 		return sqlSession.selectOne("boardMapper.selectSearchCount", map);
 	}
 
+	public ArrayList<Board> selectSearchList(SqlSession sqlSession, HashMap<String, String> map, PageInfo pi) {
+		int limit = pi.getNumPerPage();
+		int offset = (pi.getNowPage()-1)*limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("boardMapper.selectSearchList", map, rowBounds);
+	}
+
 }

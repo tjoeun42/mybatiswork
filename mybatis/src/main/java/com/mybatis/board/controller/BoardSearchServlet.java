@@ -1,8 +1,10 @@
 package com.mybatis.board.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.mybatis.board.dto.Board;
 import com.mybatis.board.service.BoardServiceImpl;
 import com.mybatis.common.dto.PageInfo;
 import com.mybatis.common.template.Pagination;
@@ -30,8 +32,14 @@ public class BoardSearchServlet extends HttpServlet {
 		
 		PageInfo pi = Pagination.getPageInfo(searchRecord, nowPage, 5, 2);
 		
+		ArrayList<Board> list =  new BoardServiceImpl().selectSearchList(map, pi);
 		
+		request.setAttribute("pi", pi);
+		request.setAttribute("list", list);
+		request.setAttribute("keyField", keyField);
+		request.setAttribute("keyWord", keyWord);
 		
+		request.getRequestDispatcher("WEB-INF/views/board/boardListView.jsp")
+				.forward(request, response);
 	}
-
 }

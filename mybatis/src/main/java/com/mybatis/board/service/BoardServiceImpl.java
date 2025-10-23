@@ -56,8 +56,9 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public ArrayList<Board> selectSearchList(HashMap<String, String> map, PageInfo pi) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Board> list = bDao.selectSearchList(sqlSession, map, pi);
+		sqlSession.close();
+		return list;
 	}
 
 	@Override

@@ -39,6 +39,24 @@
 		 </if>
 		 like '%' || #{keyWord} || '%'
 	</select>
+	<select id="selectSearchList" resultMap="boardResultSet">
+		select *
+		  from board
+		 where status='Y'
+		 <choose>
+		 	<when test="keyField=='writer'">
+		 		and board_writer
+		 	</when>
+		 	<when test="keyField=='title'">
+		 		and board_title
+		 	</when>
+		 	<otherwise>
+		 		and board_content
+		 	</otherwise>
+		 </choose>
+		 like '%' || #{keyWord} || '%'
+		 order by board_no desc
+	</select>
 </mapper>
 
 

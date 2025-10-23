@@ -25,7 +25,7 @@
 		font-size: 14px;
 		font-weight: bold;
 	}
-	.menu :hover {
+	.menu:hover {
 		background-color: darkgray;
 		cursor: pointer;
 	}

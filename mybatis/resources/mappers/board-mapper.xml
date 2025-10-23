@@ -24,4 +24,23 @@
 		 where status = 'Y'
 		 order by board_no desc 
 	</select>
+	<select id="selectSearchCount" resultType="_int">
+		select count(*)
+		  from board
+		 where status='Y'
+		 <if test="keyField=='writer'">
+		 	and board_writer
+		 </if>
+		 <if test="keyField=='title'">
+		 	and board_title
+		 </if>
+		 <if test="keyField=='content'">
+		 	and board_content
+		 </if>
+		 like '%' || #{keyWord} || '%'
+	</select>
 </mapper>
+
+
+
+

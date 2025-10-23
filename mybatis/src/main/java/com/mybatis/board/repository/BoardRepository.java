@@ -1,6 +1,7 @@
 package com.mybatis.board.repository;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
@@ -29,6 +30,10 @@ public class BoardRepository {
 		RowBounds rowBounds = new RowBounds(offset, limit);
 				
 		return (ArrayList)sqlSession.selectList("boardMapper.selectList", null, rowBounds);
+	}
+
+	public int selectSearchCount(SqlSession sqlSession, HashMap<String, String> map) {
+		return sqlSession.selectOne("boardMapper.selectSearchCount", map);
 	}
 
 }

@@ -49,8 +49,9 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public int selectSearchCount(HashMap<String, String> map) {
-		// TODO Auto-generated method stub
-		return 0;
+		int searchCount = bDao.selectSearchCount(sqlSession, map);
+		sqlSession.close();
+		return searchCount;
 	}
 
 	@Override

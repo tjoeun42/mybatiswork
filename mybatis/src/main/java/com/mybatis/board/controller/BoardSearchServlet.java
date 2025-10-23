@@ -1,9 +1,8 @@
 package com.mybatis.board.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.HashMap;
 
-import com.mybatis.board.dto.Board;
 import com.mybatis.board.service.BoardServiceImpl;
 import com.mybatis.common.dto.PageInfo;
 import com.mybatis.common.template.Pagination;
@@ -14,23 +13,25 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/list.bo")
-public class BoardListServlet extends HttpServlet {
+@WebServlet("/search.bo")
+public class BoardSearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String keyField = request.getParameter("keyField");
+		String keyWord = request.getParameter("keyWord");
 		int nowPage = Integer.parseInt(request.getParameter("nowPage"));
 		
-		int totalRecord = new BoardServiceImpl().totalRecord();
+		HashMap<String, String> map = new HashMap<>();
+		map.put("keyField", keyField);
+		map.put("keyWord", keyWord);
 		
-		PageInfo pi = Pagination.getPageInfo(totalRecord, nowPage, 5, 2);  // [1][2]
+		int searchRecord = new BoardServiceImpl().selectSearchCount(map);
 		
-		ArrayList<Board> list = new BoardServiceImpl().selectList(pi);
+		PageInfo pi = Pagination.getPageInfo(searchRecord, nowPage, 5, 2);
 		
-		request.setAttribute("pi", pi);
-		request.setAttribute("list", list);
 		
-		request.getRequestDispatcher("WEB-INF/views/board/boardListView.jsp")
-				.forward(request, response);
+		
 	}
+
 }

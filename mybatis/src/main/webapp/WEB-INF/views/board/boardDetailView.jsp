@@ -19,7 +19,7 @@
 	    word-break: break-all;
 	    white-space: normal;
 	}
-	.outer a {
+	.detail a {
 	    text-decoration:none;
 	    color: black;
 	}

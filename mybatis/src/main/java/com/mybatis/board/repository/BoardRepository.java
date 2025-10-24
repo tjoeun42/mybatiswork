@@ -64,4 +64,11 @@ public class BoardRepository {
 		return (ArrayList)sqlSession.selectList("boardMapper.selectReplyList", boardNo, rowBounds);
 	}
 
+	public int insertReply(SqlSession sqlSession, Reply r) {
+		return sqlSession.insert("boardMapper.insertReply", r);
+	}
+
+	public int insertBoard(SqlSession sqlSession, Board b) {
+		return sqlSession.insert("boardMapper.insertBoard", b);
+	}
 }

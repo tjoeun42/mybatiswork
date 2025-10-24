@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <title></title>
 <style>
 	.detail table {
@@ -63,15 +64,17 @@
 						<form id="rFrm">
 							<tr>
 								<th width="80px">댓글작성</th>
-								<th width="340px"><textarea rows="3" cols="45" name="centent"></textarea></th>
-								<th width="80px"><input type="button" value="댓글작성" id="replyInsert"></th>
+								<th width="320px"><textarea rows="3" cols="38" name="content" id="content"></textarea></th>
+								<th width="100px"><input type="button" value="댓글작성" id="replyInsert"></th>
 							</tr>
+							<input type="hidden" name="refBno" value="${b.boardNo}">
+							<input type="hidden" name="writer" value="${loginUser.userId}">
 						</form>
 					</c:when>
 					<c:otherwise>
 						<tr>
 							<th width="80px">댓글작성</th>
-							<th width="320px"><textarea rows="3" cols="45" readonly>로그인 후 이용 가능한 서비스입니다.</textarea></th>
+							<th width="300px"><textarea rows="3" cols="38" readonly>로그인 후 이용 가능한 서비스입니다.</textarea></th>
 							<th width="100px"><input type="button" value="댓글작성" disabled></th>
 						</tr>
 					</c:otherwise>
@@ -106,6 +109,41 @@
 			</c:if>
 		</div>
 	</div>
-	<br><br><br><br><br><br><br><br><br><br><br><br>
+	
+	<script>
+		$("#replyInsert").click(function() {
+			let rdata = $("#rFrm").serialize();
+			$.ajax({
+				url : "rinsert.bo",
+				data : rdata,   // content=내용&refBno=13&writer=user01
+				/*
+				data : {
+					refBno : ${b.boardNo},
+					content : $("#content").val(),
+					writer : "${loginUser.userId}"
+				},
+				*/
+				success : function(result) {
+					if(result > 0) {
+						$("#content").val("");
+						location.reload();
+					}
+				},
+				error : function() {
+					console.log("댓글 등록 ajax통신 실패");
+				}
+			})
+		})
+	</script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+

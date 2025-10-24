@@ -91,8 +91,12 @@
 		 where ref_bno = #{boardNo}
 		 order by reply_no desc
 	</select>
+	
+	<insert id="insertReply">
+		insert into reply values(seq_rno.nextval, #{replyContent}, #{refBno}, #{replyWriter}, default, default)
+	</insert>
+	
+	<insert id="insertBoard">
+		insert into board values(seq_bno.nextval, #{boardTitle}, #{boardContent}, #{boardWriter}, default, default, default)
+	</insert>
 </mapper>
-
-
-
-

@@ -84,10 +84,25 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public int insertReply(Reply r) {
-		// TODO Auto-generated method stub
-		return 0;
+		SqlSession sqlSession = getSqlSession();
+		int result = bDao.insertReply(sqlSession, r);
+		
+		if(result > 0) {
+			sqlSession.commit();
+		}
+		sqlSession.close();
+		return result;
 	}
 
-	
-
+	@Override
+	public int insertBoard(Board b) {
+		SqlSession sqlSession = getSqlSession();
+		int result = bDao.insertBoard(sqlSession, b);
+		
+		if(result > 0) {
+			sqlSession.commit();
+		}
+		sqlSession.close();
+		return result;
+	}
 }

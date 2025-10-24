@@ -22,13 +22,9 @@ public interface BoardService {
 	int selectSearchCount(HashMap<String, String> map);
 	ArrayList<Board> selectSearchList(HashMap<String, String> map, PageInfo pi);
 	
+	// 게시글쓰기
+	int insertBoard(Board b);
+	
 	// 댓글 등록
 	int insertReply(Reply r);
 }
-
-
-
-
-
-
-

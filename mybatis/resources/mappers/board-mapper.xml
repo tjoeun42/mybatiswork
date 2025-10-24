@@ -11,7 +11,6 @@
 		<result column="board_writer" property="boardWriter" />
 		<result column="count" property="count" />
 		<result column="create_date" property="createDate" />
-		<result column="status" property="status" />
 	</resultMap>
 	
 	<resultMap type="Reply" id="RelyResultSet">
@@ -20,7 +19,6 @@
 		<result column="ref_bno" property="refBno" />
 		<result column="reply_writer" property="replyWriter" />
 		<result column="create_date" property="createDate" />
-		<result column="status" property="status" />
 	</resultMap>
 	
 	<select id="totalRecord" resultType="_int">

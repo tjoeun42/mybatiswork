@@ -29,20 +29,45 @@ public class BoardDetailServlet extends HttpServlet {
 		
 		int boardNo = Integer.parseInt(request.getParameter("bno"));
 		
-		int result = bService.increaseCount(boardNo);
-
-		if(result > 0) {
+		if(request.getSession().getAttribute("viewedBoard_"+boardNo) == null) {
+			int result = bService.increaseCount(boardNo);
+	
+			if(result > 0) {
+				request.getSession().setAttribute("viewedBoard_"+boardNo, true);
+				
+				Board b = bService.selectBoard(boardNo);
+				
+				int replyRecord = bService.replyRecord(boardNo);
+				PageInfo rpi = Pagination.getPageInfo(replyRecord, nowPage, 5, 2);
+				
+				ArrayList<Reply> rlist = bService.selectReplyList(boardNo, rpi);
+				
+				request.setAttribute("b", b);
+				request.setAttribute("rpi", rpi);
+				request.setAttribute("rlist", rlist);
+				
+				request.getRequestDispatcher("WEB-INF/views/board/boardDetailView.jsp")
+						.forward(request, response);
+			} else {
+				request.setAttribute("errorMsg", "상세조회 실패");
+				request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp")
+						.forward(request, response);
+			}
+		} else {
 			Board b = bService.selectBoard(boardNo);
-			System.out.println("board title : " + b.getBoardTitle());
 			
 			int replyRecord = bService.replyRecord(boardNo);
-			PageInfo pi = Pagination.getPageInfo(replyRecord, nowPage, 5, 2);
-			System.out.println("댓글의 갯수 : " + replyRecord);
+			PageInfo rpi = Pagination.getPageInfo(replyRecord, nowPage, 5, 2);
 			
-			ArrayList<Reply> list = bService.selectReplyList(boardNo, pi);
-			System.out.println("댓글의 리스트 갯수 : " + list.size());
+			ArrayList<Reply> rlist = bService.selectReplyList(boardNo, rpi);
+			
+			request.setAttribute("b", b);
+			request.setAttribute("rpi", rpi);
+			request.setAttribute("rlist", rlist);
+			
+			request.getRequestDispatcher("WEB-INF/views/board/boardDetailView.jsp")
+					.forward(request, response);
 		}
-		
 	}
 
 }
